@@ -75,12 +75,12 @@ jobs:
           ls -ll /tmp/
     
     - name: Add Tag to GitHub
-      uses: anothrNick/github-tag-action@1.36.0
+      uses: rickstaa/action-create-tag@v1
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        ref: 'Passed'
-        #force-branch: true
+          tag: "Passed"
+          #force-branch: true
         
     - name: Slack Notification
       uses: act10ns/slack@v1
