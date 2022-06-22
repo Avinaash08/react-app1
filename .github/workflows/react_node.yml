@@ -73,7 +73,12 @@ jobs:
           unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
           ls -ll /tmp/
-          
+    
+    - name: Add Tag for GitHub
+      uses: EndBug/latest-tag@latest
+      with:
+        tag-name: 'Passed'
+        
     - name: Slack Notification
       uses: act10ns/slack@v1
       env:
