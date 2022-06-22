@@ -74,3 +74,10 @@ jobs:
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
           ls -ll /tmp/
           
+    - name: Slack Notification
+      uses: act10ns/slack@v1
+      with: 
+        status: ${{ job.status }}
+        channel: '#results-cx'
+        #message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
+      if: always() 
