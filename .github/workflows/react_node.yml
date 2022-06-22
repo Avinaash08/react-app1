@@ -74,11 +74,13 @@ jobs:
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
           ls -ll /tmp/
     
-    - name: Add Tag for GitHub
-      uses: EndBug/latest-tag@latest
+    - name: Add Tag to GitHub
+      uses: anothrNick/github-tag-action@1.36.0
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
         ref: 'Passed'
-        force-branch: true
+        #force-branch: true
         
     - name: Slack Notification
       uses: act10ns/slack@v1
