@@ -80,7 +80,7 @@ jobs:
         tag-name: 'Passed'
         
     - name: Slack Notification
-      uses: act10ns/slack@v1
+      #uses: act10ns/slack@v1
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with: 
