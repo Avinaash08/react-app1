@@ -79,8 +79,8 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-          tag: "Passed"
-          #force-branch: true
+        tag: "Passed"
+        #force-branch: true
         
     - name: Slack Notification
       uses: act10ns/slack@v1
