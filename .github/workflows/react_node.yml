@@ -78,6 +78,7 @@ jobs:
       uses: EndBug/latest-tag@latest
       with:
         ref: 'Passed'
+        force-branch: true
         
     - name: Slack Notification
       uses: act10ns/slack@v1
