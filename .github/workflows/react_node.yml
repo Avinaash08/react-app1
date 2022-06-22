@@ -85,6 +85,7 @@ jobs:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with: 
         status: ${{ job.status }}
+        notify_when: 'failure'
         channel: '#results-cx'
         #message: Deployed {{ env.GITHUB_REF_NAME }} branch Successfully
       if: always() 
