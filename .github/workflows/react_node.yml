@@ -26,7 +26,7 @@ jobs:
     - name: Install dependencies
       run: npm install 
 
-    - name: Run the tests
+    - name: Run the cypress tests
       run: npm test
 
     - name: Build
