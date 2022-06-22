@@ -1,0 +1,71 @@
+name: React_node.yml
+
+on:
+  pull_request:
+    branches: [ dev ]
+env:
+  PR: build1  
+jobs:
+  build:
+   # if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+      
+    - name: Set up Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+
+    - name: Install dependencies
+      run: npm install 
+
+    #- name: Run the tests
+     # run: npm test
+
+    - name: Build
+      run: npm run build
+      env:
+          CI: ""
+    - name: Generate deployment package
+      run: zip -r build.zip ./build/*
+
+    - name: Nginx Config File builder
+      run: |
+          echo "server {"  >> ${PR}.conf
+          echo "     listen 80;" >> ${PR}.conf
+          echo "     listen [::]:80;" >> ${PR}.conf
+          echo "     server_name ${PR}.com www.${PR}.com;" >> ${PR}.conf
+          echo "     root /home/ubuntu/${PR}/build;" >> ${PR}.conf
+          echo "     index index.html index.htm;" >> ${PR}.conf
+          echo "     location / {" >> ${PR}.conf
+          echo "         try_files $uri $uri/ =404;" >> ${PR}.conf
+          echo "     }" >> ${PR}.conf
+          echo "}" >> ${PR}.conf
+    - name: Copy Build Artifacts & Deploy
+      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      env:
+        LASTSSH: "Storing the Build Artifact in a separate location"
+      with:
+        host: ${{ secrets.HOSTNAME }}
+        user: ${{ secrets.USERNAME }}
+        key: ${{ secrets.AWS_PRIVATE_KEY }}
+        connect_timeout: 10s
+        first_ssh: |
+          rm -rf /home/ubuntu/${PR} 
+          mkdir -p /home/ubuntu/${PR}
+          mkdir -p /home/ubuntu/nginxconf/
+        scp: |
+          './${PR}.conf' => /home/ubuntu/nginxconf/
+          './build.zip' => /home/ubuntu/${PR}/
+        last_ssh: |
+          echo $LASTSSH  
+          unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
+          mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
+          ls -ll /tmp/
