@@ -75,12 +75,12 @@ jobs:
           ls -ll /tmp/
     
     - name: Add Tag for GitHub
-      uses: EndBug/latest-tag@latest
+      #uses: EndBug/latest-tag@latest
       with:
         tag-name: 'Passed'
         
     - name: Slack Notification
-      #uses: act10ns/slack@v1
+      uses: act10ns/slack@v1
       env:
         SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}
       with: 
