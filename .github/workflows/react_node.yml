@@ -67,11 +67,11 @@ jobs:
           './build.zip' => /home/ubuntu/${PR}/
         last_ssh: |
           echo $LASTSSH
-          sudo cp /home/ubuntu/nginxconf/${PR}.conf /etc/nginx/sites-available 
-          sudo ln -s /etc/nginx/sites-available/${PR}.conf /etc/nginx/sites-enabled/${PR}.conf 
+          #sudo cp /home/ubuntu/nginxconf/${PR}.conf /etc/nginx/sites-available 
+          #sudo ln -s /etc/nginx/sites-available/${PR}.conf /etc/nginx/sites-enabled/${PR}.conf 
           unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
-          sudo systemctl nginx restart
+          #sudo systemctl nginx restart
           ls -ll /tmp/ 
 
     #- name: Slack Notification
