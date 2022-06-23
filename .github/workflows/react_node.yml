@@ -99,7 +99,7 @@ jobs:
         #labels: 'QA Passed'
 
     - name: Link Jira Issue
-      uses: john-d-pelingo/jira-link-issue-action@v1
+      uses: john-d-pelingo/jira-link-issue-action@v1.1.2
       with:
         atlassian-domain: 'https://devicebits.atlassian.net/'
         board-name: 'Results-cx'
