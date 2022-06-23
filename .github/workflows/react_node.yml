@@ -93,7 +93,7 @@ jobs:
     
     - name: Tag with Label
       uses: actions-ecosystem/action-add-labels@v1
-      if: ${{ github.event.pull_request.number '/add-labels' }}
+      if: ${{ github.event.pull_request.number}}
       with:
         labels: 'QA Passed'
                 
