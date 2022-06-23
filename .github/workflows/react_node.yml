@@ -127,7 +127,7 @@ jobs:
         JIRA_USER: 'avinaash.p@indiumsoft.com'
         JIRA_PROJECT_NAME: 'RP'
         #board-name: 'Results-cx'
-        isCreateIssue: true
+        #isCreateIssue: true
         #appendDescAfterRegex: "Jira Issue Link:"
   
     - name: Slack Notification
