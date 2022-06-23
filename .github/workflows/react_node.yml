@@ -6,6 +6,9 @@ on:
 env:
   PR: ${{ github.event.pull_request.title }} 
 
+permissions:
+  pull-requests: write
+  
 jobs:
   build:
    # if: github.event.pull_request.merged == true
@@ -89,12 +92,10 @@ jobs:
         body: ${{ steps.tag_version.outputs.changelog }}
     
     - name: Tag with Label
-      uses: crazymanish/pullrequest-attention-label-action@master
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        ADD_LABEL: "QA Passed"
-        #AFTER_DAYS: 4
-        SKIP_LABELS: "approved,wip"
+      uses: actions-ecosystem/action-add-labels@v1
+      if: ${{ github.event.pull_request.number, '/add-labels' }}
+      with:
+        labels: QA Passed
                 
     - name: Slack Notification
       uses: act10ns/slack@v1
