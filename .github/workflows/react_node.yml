@@ -75,12 +75,30 @@ jobs:
           ls -ll /tmp/
     
     - name: Add Tag to GitHub
-      uses: rickstaa/action-create-tag@v1
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag: "Passed"
+      #uses: EndBug/latest-tag@latest
+      #env:
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      #with:
+        #ref: 'Passed'
         #force-branch: true
+
+    - uses: actions-ecosystem/action-get-merged-pull-request@v1
+      id: get-merged-pull-request
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+
+    - uses: actions-ecosystem/action-release-label@v1
+      id: release-label
+      if: ${{ steps.get-merged-pull-request.outputs.title != null }}
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        labels: ${{ steps.get-merged-pull-request.outputs.labels }}
+
+    - uses: actions-ecosystem/action-get-latest-tag@v1
+      id: get-latest-tag
+      if: ${{ steps.release-label.outputs.level != null }}
+      with:
+        semver_only: true
         
     - name: Slack Notification
       uses: act10ns/slack@v1
