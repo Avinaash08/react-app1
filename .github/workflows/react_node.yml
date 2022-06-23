@@ -2,6 +2,7 @@ name: React_node.yml
 
 on:
   pull_request:
+    types: [opened]
     branches: [ dev ]
 env:
   PR: ${{ github.event.pull_request.title }} 
@@ -96,7 +97,16 @@ jobs:
       #if: ${{ github.event.pull_request.number}}
       #with:
         #labels: 'QA Passed'
-                
+
+    - name: Link Jira Issue
+      uses: john-d-pelingo/jira-link-issue-action@v1
+      with:
+        atlassian-domain: 'https://devicebits.atlassian.net/'
+        board-name: 'Results-cx'
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        isCreateIssue: true
+        appendDescAfterRegex: "Jira Issue Link:"
+  
     - name: Slack Notification
       uses: act10ns/slack@v1
       env:
