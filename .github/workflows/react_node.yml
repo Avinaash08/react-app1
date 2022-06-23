@@ -4,15 +4,15 @@ on:
   pull_request:
     types: [labeled, unlabeled]
     branches: [ dev ]
-    
+env:
+  PR: ${{ github.event.pull_request.title }} 
+  
 permissions:
   contents: read
   issues: write
   pull-requests: write
   discussions: write
-env:
-  PR: ${{ github.event.pull_request.title }} 
-  
+
 jobs:
   build:
    # if: github.event.pull_request.merged == true
