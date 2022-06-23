@@ -6,8 +6,8 @@ on:
 env:
   PR: ${{ github.event.pull_request.title }} 
 
-permissions:
-  pull-requests: write
+#permissions:
+  #pull-requests: write
   
 jobs:
   build:
