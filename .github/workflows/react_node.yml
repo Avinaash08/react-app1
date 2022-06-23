@@ -2,9 +2,17 @@ name: React_node.yml
 
 on:
   pull_request:
+    types: [labeled, unlabeled]
     branches: [ dev ]
+    
+permissions:
+  contents: read
+  issues: write
+  pull-requests: write
+  discussions: write
 env:
-  PR: ${{ github.event.pull_request.title }}  
+  PR: ${{ github.event.pull_request.title }} 
+  
 jobs:
   build:
    # if: github.event.pull_request.merged == true
@@ -86,6 +94,12 @@ jobs:
         tag: ${{ steps.tag_version.outputs.new_tag }}
         name: Release ${{ steps.tag_version.outputs.new_tag }}
         body: ${{ steps.tag_version.outputs.changelog }}
+    
+    - name: Tag with label
+      uses: dessant/label-actions@v2
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        process-only: ''
                 
     - name: Slack Notification
       uses: act10ns/slack@v1
