@@ -78,7 +78,19 @@ jobs:
           unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
           ls -ll /tmp/
-    
+          
+    - name: "Create an A record set"
+      uses: Roosterfish/aws-route53-record-set-action@master
+      with: 
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_route53_hosted_zone_id: ${{ secrets.AWS_ROUTE53_HOSTED_ZONE_ID }}
+        aws_route53_rr_action: "CREATE"
+        aws_route53_rr_name: "trial-fe-pr-1-env"
+        aws_route53_rr_type: "CNAME"
+        aws_route53_rr_ttl: "300"
+        aws_route53_rr_value: "indium-poc.co.in"
+          
     - name: Add Tag to GitHub
       id: tag_version
       uses: mathieudutour/github-tag-action@v6.0
@@ -98,16 +110,16 @@ jobs:
       #with:
         #labels: 'QA Passed'
 
-    - name: Link Jira Issue
-      uses: cchantep/probot-jira@ghaction-1.0.x
-      with:
-        github-token: ${{ secrets.GITHUB_TOKEN }}
-        PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
-        PERSONAL_TOKEN_USER: 'Avinaash08'
-        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        JIRA_DOMAIN: 'devicebits.atlassian.net'
-        JIRA_USER: 'avinaash.p@results-cx.com'
-        JIRA_PROJECT_NAME: 'DEVOPS-284'
+    #- name: Link Jira Issue
+      #uses: cchantep/probot-jira@ghaction-1.0.x
+      #with:
+        #github-token: ${{ secrets.GITHUB_TOKEN }}
+        #PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
+        #PERSONAL_TOKEN_USER: 'Avinaash08'
+        #JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        #JIRA_DOMAIN: 'devicebits.atlassian.net'
+        #JIRA_USER: 'avinaash.p@results-cx.com'
+        #JIRA_PROJECT_NAME: 'DEVOPS-284'
         #board-name: 'Results-cx'
         #isCreateIssue: true
         #appendDescAfterRegex: "Jira Issue Link:"
