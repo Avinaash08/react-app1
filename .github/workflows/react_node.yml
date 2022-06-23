@@ -102,7 +102,10 @@ jobs:
       uses: john-d-pelingo/jira-link-issue-action@v1.1.2
       with:
         atlassian-domain: 'https://devicebits.atlassian.net/'
-        board-name: 'Results-cx'
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_PROJECT_NAME: 'DEVOPS'
+        JIRA_USER: 'avinaash.p@results-cx.com'
+        #board-name: 'Results-cx'
         github-token: ${{ secrets.GITHUB_TOKEN }}
         isCreateIssue: true
         appendDescAfterRegex: "Jira Issue Link:"
