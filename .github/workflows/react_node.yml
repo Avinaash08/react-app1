@@ -93,9 +93,9 @@ jobs:
     
     - name: Tag with Label
       uses: actions-ecosystem/action-add-labels@v1
-      if: ${{ github.event.pull_request.number, '/add-labels' }}
+      if: ${{ github.event.pull_request.number '/add-labels' }}
       with:
-        labels: QA Passed
+        labels: 'QA Passed'
                 
     - name: Slack Notification
       uses: act10ns/slack@v1
