@@ -116,18 +116,18 @@ jobs:
       #with:
         #labels: 'QA Passed'
 
-    #- name: Link Jira Issue
-      #uses: cchantep/probot-jira@ghaction-1.0.x
-      #with:
-        #github-token: ${{ secrets.GITHUB_TOKEN }}
-        #PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
-        #PERSONAL_TOKEN_USER: 'Avinaash08'
-        #JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        #JIRA_DOMAIN: 'devicebits.atlassian.net'
-        #JIRA_USER: 'avinaash.p@results-cx.com'
-        #JIRA_PROJECT_NAME: 'DEVOPS-284'
+    - name: Link Jira Issue
+      uses: cchantep/probot-jira@ghaction-1.0.x
+      with:
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
+        PERSONAL_TOKEN_USER: 'Avinaash08'
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_DOMAIN: 'sachinlaturkar.atlassian.net'
+        JIRA_USER: 'avinaash.p@indiumsoft.com'
+        JIRA_PROJECT_NAME: 'RP'
         #board-name: 'Results-cx'
-        #isCreateIssue: true
+        isCreateIssue: true
         #appendDescAfterRegex: "Jira Issue Link:"
   
     - name: Slack Notification
