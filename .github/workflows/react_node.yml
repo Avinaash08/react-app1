@@ -107,7 +107,7 @@ jobs:
         JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
         JIRA_DOMAIN: 'devicebits.atlassian.net'
         JIRA_USER: 'avinaash.p@results-cx.com'
-        JIRA_PROJECT_NAME: 'DEVOPS'
+        JIRA_PROJECT_NAME: 'DEVOPS-284'
         #board-name: 'Results-cx'
         #isCreateIssue: true
         #appendDescAfterRegex: "Jira Issue Link:"
