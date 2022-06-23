@@ -86,7 +86,7 @@ jobs:
         aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws_route53_hosted_zone_id: ${{ secrets.AWS_ROUTE53_HOSTED_ZONE_ID }}
         aws_route53_rr_action: "CREATE"
-        aws_route53_rr_name: trial-fe-pr-${PR}-env.ci-workflow.indium-poc.co.in
+        aws_route53_rr_name: "trial-fe-pr-\"${PR}\"-env.ci-workflow.indium-poc.co.in"
         aws_route53_rr_type: "A"
         aws_route53_rr_ttl: "300"
         aws_route53_rr_value: "43.205.30.201"
