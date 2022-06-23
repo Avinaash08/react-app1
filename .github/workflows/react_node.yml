@@ -117,23 +117,23 @@ jobs:
       #with:
         #labels: 'QA Passed'
 
-    - name: Integration
-      uses: ./
-      with:
-        host: ${{ secrets.JIRA_BASE_URL }}
-        githubToken: ${{ secrets.GITHUB_TOKEN }}
-        webhook: ${{ secrets.JIRA_WEBHOOK }}
-        
-    #- name: Link Jira Issue
-      #uses: cchantep/probot-jira@ghaction-1.0.x
+    #- name: Integration
+      #uses: ./
       #with:
-        #GITHUB_TOKEN: ${{ secrets.GH_PATH }}
-        #PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
-        #PERSONAL_TOKEN_USER: 'avinashcse8@gmail.com'
-        #JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
-        #JIRA_DOMAIN: 'sachinlaturkar.atlassian.net'
-        #JIRA_USER: 'avinaash.p@indiumsoft.com'
-        #JIRA_PROJECT_NAME: 'RP'
+        #host: ${{ secrets.JIRA_BASE_URL }}
+        #githubToken: ${{ secrets.GITHUB_TOKEN }}
+        #webhook: ${{ secrets.JIRA_WEBHOOK }}
+        
+    - name: Link Jira Issue
+      uses: cchantep/probot-jira@ghaction-1.0.x
+      with:
+        #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        PERSONAL_TOKEN_VALUE: ${{ secrets.PERSONAL_TOKEN_VALUE }}
+        PERSONAL_TOKEN_USER: 'avinashcse8@gmail.com'
+        JIRA_API_TOKEN: ${{ secrets.JIRA_API_TOKEN }}
+        JIRA_DOMAIN: 'sachinlaturkar.atlassian.net'
+        JIRA_USER: 'avinaash.p@indiumsoft.com'
+        JIRA_PROJECT_NAME: 'RP'
         #board-name: 'Results-cx'
         #isCreateIssue: true
         #appendDescAfterRegex: "Jira Issue Link:"
