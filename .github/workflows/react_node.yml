@@ -89,10 +89,12 @@ jobs:
         body: ${{ steps.tag_version.outputs.changelog }}
     
     - name: Tag with Label
-      uses: actions-ecosystem/action-add-labels@v1
-      if: ${{ startsWith(github.event.comment.body, '/add-labels') }}
-      with:
-        labels: QA Passed
+      uses: crazymanish/pullrequest-attention-label-action@master
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        ADD_LABEL: "QA Passed"
+        AFTER_DAYS: 4
+        SKIP_LABELS: "approved,wip"
                 
     - name: Slack Notification
       uses: act10ns/slack@v1
