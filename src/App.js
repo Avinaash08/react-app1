@@ -6,7 +6,7 @@ function App() {
     <div className="App">
       <header className="App-header">
         
-       <Widget name="Hi Indium - RCX-10"/>
+       <Widget name="Hi Indium - RCX-11"/>
       </header>
     </div>
   );
