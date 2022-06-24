@@ -48,55 +48,55 @@ jobs:
     - id: step1
       run: echo "::set-output name=test::trial-fe-pr-${PR}-env.ci-workflow.indium-poc.co.in"
 
-    - name: Nginx Config File builder
-      run: |
-          echo "server {"  >> ${PR}.conf
-          echo "     listen 80;" >> ${PR}.conf
-          echo "     listen [::]:80;" >> ${PR}.conf
-          echo "     server_name ${PR}.com www.${PR}.com;" >> ${PR}.conf
+    #- name: Nginx Config File builder
+      #run: |
+          #echo "server {"  >> ${PR}.conf
+          #echo "     listen 80;" >> ${PR}.conf
+          #echo "     listen [::]:80;" >> ${PR}.conf
+          #echo "     server_name ${PR}.com www.${PR}.com;" >> ${PR}.conf
 
-          echo "     root /home/ubuntu/${PR}/build;" >> ${PR}.conf
+          #echo "     root /home/ubuntu/${PR}/build;" >> ${PR}.conf
 
-          echo "     index index.html index.htm;" >> ${PR}.conf
+          #echo "     index index.html index.htm;" >> ${PR}.conf
 
-          echo "     location / {" >> ${PR}.conf
-          echo "         try_files $uri $uri/ =404;" >> ${PR}.conf
-          echo "     }" >> ${PR}.conf
-          echo "}" >> ${PR}.conf
+          #echo "     location / {" >> ${PR}.conf
+          #echo "         try_files $uri $uri/ =404;" >> ${PR}.conf
+          #echo "     }" >> ${PR}.conf
+          #echo "}" >> ${PR}.conf
 
-    - name: Copy Build Artifacts & Deploy
-      uses: cross-the-world/ssh-scp-ssh-pipelines@latest
-      env:
-        LASTSSH: "Storing the Build Artifact in a separate location"
-      with:
-        host: ${{ secrets.HOSTNAME }}
-        user: ${{ secrets.USERNAME }}
-        key: ${{ secrets.AWS_PRIVATE_KEY }}
-        connect_timeout: 10s
-        first_ssh: |
-          rm -rf /home/ubuntu/${PR} 
-          mkdir -p /home/ubuntu/${PR}
-          mkdir -p /home/ubuntu/nginxconf/
-        scp: |
-          './${PR}.conf' => /home/ubuntu/nginxconf/
-          './build.zip' => /home/ubuntu/${PR}/
-        last_ssh: |
-          echo $LASTSSH  
-          unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
-          mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
-          ls -ll /tmp/
+    #- name: Copy Build Artifacts & Deploy
+      #uses: cross-the-world/ssh-scp-ssh-pipelines@latest
+      #env:
+        #LASTSSH: "Storing the Build Artifact in a separate location"
+      #with:
+        #host: ${{ secrets.HOSTNAME }}
+        #user: ${{ secrets.USERNAME }}
+        #key: ${{ secrets.AWS_PRIVATE_KEY }}
+        #connect_timeout: 10s
+        #first_ssh: |
+          #rm -rf /home/ubuntu/${PR} 
+          #mkdir -p /home/ubuntu/${PR}
+          #mkdir -p /home/ubuntu/nginxconf/
+        #scp: |
+          #'./${PR}.conf' => /home/ubuntu/nginxconf/
+          #'./build.zip' => /home/ubuntu/${PR}/
+        #last_ssh: |
+          #echo $LASTSSH  
+          #unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
+          #mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
+          #ls -ll /tmp/
           
-    - name: "Create an A record set"
-      uses: Roosterfish/aws-route53-record-set-action@master
-      with: 
-        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws_route53_hosted_zone_id: ${{ secrets.AWS_ROUTE53_HOSTED_ZONE_ID }}
-        aws_route53_rr_action: "CREATE"
-        aws_route53_rr_name: ${{ steps.step1.outputs.test }}
-        aws_route53_rr_type: "A"
-        aws_route53_rr_ttl: "300"
-        aws_route53_rr_value: "43.205.30.201"
+    #- name: "Create an A record set"
+      #uses: Roosterfish/aws-route53-record-set-action@master
+      #with: 
+        #aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        #aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        #aws_route53_hosted_zone_id: ${{ secrets.AWS_ROUTE53_HOSTED_ZONE_ID }}
+        #aws_route53_rr_action: "CREATE"
+        #aws_route53_rr_name: ${{ steps.step1.outputs.test }}
+        #aws_route53_rr_type: "A"
+        #aws_route53_rr_ttl: "300"
+        #aws_route53_rr_value: "43.205.30.201"
           
     - name: Add Tag to GitHub
       id: tag_version
