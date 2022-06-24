@@ -84,6 +84,7 @@ jobs:
           echo $LASTSSH  
           unzip /home/ubuntu/${PR}/build.zip -d /home/ubuntu/${PR}/
           mv /home/ubuntu/${PR}/build.zip /tmp/${PR}.zip
+          sh /home/ubuntu/.script/restart_nginx
           ls -ll /tmp/
           
     - name: "Create an A record set"
