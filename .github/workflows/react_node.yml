@@ -60,7 +60,7 @@ jobs:
           echo "     index index.html index.htm;" >> ${PR}.conf
 
           echo "     location / {" >> ${PR}.conf
-          echo "         try_files $uri $uri/ =404;" >> ${PR}.conf
+          echo "         try_files \$uri \$uri/ =404;" >> ${PR}.conf
           echo "     }" >> ${PR}.conf
           echo "}" >> ${PR}.conf
 
