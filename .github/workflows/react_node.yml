@@ -149,7 +149,7 @@ jobs:
       uses: atlassian/gajira-comment@master
       with:
         issue: ${{ github.event.pull_request.title }}
-        comment: ${{ github.event.pull_request.title }}
+        comment: ${{ github.event.pull_request.title }} ${{ steps.step1.outputs.test }}
         
     - name: Slack Notification
       uses: act10ns/slack@v1
