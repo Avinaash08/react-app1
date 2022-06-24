@@ -53,7 +53,7 @@ jobs:
           echo "server {"  >> ${PR}.conf
           echo "     listen 80;" >> ${PR}.conf
           echo "     listen [::]:80;" >> ${PR}.conf
-          echo "     server_name ${PR}.com www.${PR}.com;" >> ${PR}.conf
+          echo "     server_name ${{ steps.step1.outputs.test }};" >> ${PR}.conf
 
           echo "     root /home/ubuntu/${PR}/build;" >> ${PR}.conf
 
